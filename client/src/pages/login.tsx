@@ -2,6 +2,9 @@ import { Box, Container } from "@mui/material";
 import { useLogin } from "@refinedev/core";
 import { useEffect, useRef } from "react";
 
+// import logo: 
+import { yariga } from '../assets';
+
 import { CredentialResponse } from "../interfaces/google";
 
 export const Login: React.FC = () => {
