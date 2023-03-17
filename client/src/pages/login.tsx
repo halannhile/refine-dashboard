@@ -3,7 +3,7 @@ import { useLogin } from "@refinedev/core";
 import { useEffect, useRef } from "react";
 
 // import logo: 
-import { yariga } from '../assets';
+import { maison } from '../assets';
 
 import { CredentialResponse } from "../interfaces/google";
 
@@ -45,8 +45,7 @@ export const Login: React.FC = () => {
     <Box
       component="div"
       sx={{
-        background: `radial-gradient(50% 50% at 50% 50%, #63386A 0%, #310438 100%)`,
-        backgroundSize: "cover",
+        backgroundColor: '#FCFCFC'
       }}
     >
       <Container
@@ -68,7 +67,7 @@ export const Login: React.FC = () => {
           }}
         >
           <div>
-            <img src="./refine.svg" alt="Refine Logo" />
+            <img src={yariga} alt="Maison Logo" />
           </div>
           <Box mt={4}>
             <GoogleButton />
