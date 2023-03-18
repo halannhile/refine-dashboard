@@ -23,8 +23,8 @@ import {
 import dataProvider from "@refinedev/simple-rest";
 import routerProvider from "@refinedev/react-router-v6/legacy";
 import axios, { AxiosRequestConfig } from "axios";
-import { Title, Sider, Layout, Header } from "components/layout";
-import { ColorModeContextProvider } from "./contexts";
+import { Title, Sider, Layout, Header } from "./components/layout";
+import { ColorModeContextProvider } from "./contexts/color-mode";
 import { CredentialResponse } from "interfaces/google";
 import { parseJwt } from "utils/parse-jwt";
 
@@ -38,7 +38,7 @@ import {
     CreateProperty,
     AgentProfile,
     EditProperty,
-} from "pages";
+} from "./pages";
 
 const axiosInstance = axios.create();
 axiosInstance.interceptors.request.use((request: AxiosRequestConfig) => {
