@@ -46,6 +46,10 @@ export const Login: React.FC = () => {
         return <div ref={divRef} />;
     };
 
+    const handleLoginError = (error: any) => {
+        console.log(error);
+    };
+
     return (
         <Box component="div" sx={{ backgroundColor: "#FCFCFC" }}>
             <Container
