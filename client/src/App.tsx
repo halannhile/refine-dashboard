@@ -5,12 +5,14 @@ import {
   Refine,
 } from "@refinedev/core";
 import { RefineKbar, RefineKbarProvider } from "@refinedev/kbar";
+
 import {
   ErrorComponent,
   Layout,
   notificationProvider,
   RefineSnackbarProvider,
 } from "@refinedev/mui";
+
 import { CssBaseline, GlobalStyles } from "@mui/material";
 import routerBindings, {
   CatchAllNavigate,
