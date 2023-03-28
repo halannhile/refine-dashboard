@@ -39,7 +39,6 @@ import { BrowserRouter, Outlet, Route, Routes } from "react-router-dom";
 import { parseJwt } from "utils/parse-jwt";
 import { Header } from "./components/header";
 import { ColorModeContextProvider } from "./contexts/color-mode";
-
 const axiosInstance = axios.create();
 axiosInstance.interceptors.request.use((request: AxiosRequestConfig) => {
   const token = localStorage.getItem("token");
@@ -50,15 +49,12 @@ axiosInstance.interceptors.request.use((request: AxiosRequestConfig) => {
       Authorization: `Bearer ${token}`,
     };
   }
-
   return request;
 });
-
 function App() {
   const authProvider: LegacyAuthProvider = {
     login: ({ credential }: CredentialResponse) => {
       const profileObj = credential ? parseJwt(credential) : null;
-
       if (profileObj) {
         localStorage.setItem(
           "user",
@@ -68,14 +64,12 @@ function App() {
           })
         );
       }
-
       localStorage.setItem("token", `${credential}`);
 
       return Promise.resolve();
     },
     logout: () => {
       const token = localStorage.getItem("token");
-
       if (token && typeof window !== "undefined") {
         localStorage.removeItem("token");
         localStorage.removeItem("user");
