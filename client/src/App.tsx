@@ -8,9 +8,10 @@ import { RefineKbar, RefineKbarProvider } from "@refinedev/kbar";
 
 import {
   ErrorComponent,
-  Layout,
+  // Layout,
   notificationProvider,
   RefineSnackbarProvider,
+  ReadyPage,
 } from "@refinedev/mui";
 
 import { CssBaseline, GlobalStyles } from "@mui/material";
@@ -28,7 +29,7 @@ import {
   CategoryList,
   CategoryShow,
 } from "pages/categories";
-import { Login } from "pages/login";
+// import { Login } from "pages/login";
 import {
   ProductCreate,
   ProductEdit,
@@ -37,8 +38,35 @@ import {
 } from "pages/products";
 import { BrowserRouter, Outlet, Route, Routes } from "react-router-dom";
 import { parseJwt } from "utils/parse-jwt";
-import { Header } from "./components/header";
+// import { Header } from "./components/header";
+import { Title, Sider, Layout, Header } from "components/layout";
+
+
+import {
+  Login,
+  Home,
+  Agents,
+  MyProfile,
+  PropertyDetails,
+  AllProperties,
+  CreateProperty,
+  AgentProfile,
+  EditProperty,
+} from "pages";
+
 import { ColorModeContextProvider } from "./contexts/color-mode";
+
+
+import {
+  AccountCircleOutlined,
+  ChatBubbleOutline,
+  PeopleAltOutlined,
+  StarOutlineRounded,
+  VillaOutlined,
+} from "@mui/icons-material";
+
+
+
 const axiosInstance = axios.create();
 axiosInstance.interceptors.request.use((request: AxiosRequestConfig) => {
   const token = localStorage.getItem("token");
@@ -51,10 +79,13 @@ axiosInstance.interceptors.request.use((request: AxiosRequestConfig) => {
   }
   return request;
 });
+
+
 function App() {
   const authProvider: LegacyAuthProvider = {
     login: ({ credential }: CredentialResponse) => {
       const profileObj = credential ? parseJwt(credential) : null;
+      
       if (profileObj) {
         localStorage.setItem(
           "user",
@@ -108,27 +139,62 @@ function App() {
           <CssBaseline />
           <GlobalStyles styles={{ html: { WebkitFontSmoothing: "auto" } }} />
           <RefineSnackbarProvider>
+
             <Refine
               dataProvider={dataProvider("https://api.fake-rest.refine.dev")}
               notificationProvider={notificationProvider}
+              // resources={[
+              //   {
+              //     name: "products",
+              //     list:  "/products",
+              //     create: "/products/create",
+              //     edit: "/products/edit/:id",
+              //     show: "/products/show/:id",
+              //     canDelete: true,
+              //   },
+              //   {
+              //     name: "categories",
+              //     list: "/categories",
+              //     create: "/categories/create",
+              //     edit: "/categories/edit/:id",
+              //     show: "/categories/show/:id",
+              //     canDelete: true,
+              //   },
+              // ]}
+
               resources={[
                 {
-                  name: "products",
-                  list: "/products",
-                  create: "/products/create",
-                  edit: "/products/edit/:id",
-                  show: "/products/show/:id",
-                  canDelete: true,
+                    name: "properties",
+                    list: AllProperties,
+                    show: PropertyDetails,
+                    create: CreateProperty,
+                    edit: EditProperty,
+                    icon: <VillaOutlined />,
                 },
                 {
-                  name: "categories",
-                  list: "/categories",
-                  create: "/categories/create",
-                  edit: "/categories/edit/:id",
-                  show: "/categories/show/:id",
-                  canDelete: true,
+                    name: "agents",
+                    list: Agents,
+                    show: AgentProfile,
+                    icon: <PeopleAltOutlined />,
                 },
-              ]}
+                {
+                    name: "reviews",
+                    list: Home,
+                    icon: <StarOutlineRounded />,
+                },
+                {
+                    name: "messages",
+                    list: Home,
+                    icon: <ChatBubbleOutline />,
+                },
+                {
+                    name: "my-profile",
+                    options: { label: "My Profile " },
+                    list: MyProfile,
+                    icon: <AccountCircleOutlined />,
+                },
+            ]}
+
               routerProvider={routerBindings}
               legacyAuthProvider={authProvider}
               options={{
@@ -188,11 +254,11 @@ function App() {
               <RefineKbar />
               <UnsavedChangesNotifier />
             </Refine>
-          </RefineSnackbarProvider>
-        </ColorModeContextProvider>
-      </RefineKbarProvider>
-    </BrowserRouter>
-  );
+           </RefineSnackbarProvider>
+         </ColorModeContextProvider>
+       </RefineKbarProvider>
+     </BrowserRouter>
+   );
 }
 
 export default App;
